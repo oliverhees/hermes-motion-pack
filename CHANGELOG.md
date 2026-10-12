@@ -15,3 +15,6 @@
 - Hermes-native skill frontmatter: version, author, tags, category, `required_environment_variables` (ELEVENLABS_API_KEY, KIE_API_KEY), explicit file lists so URL/GitHub installs fetch every script and reference.
 - Repo is a valid Hermes **skill tap** (`skills/<name>/SKILL.md`); `skills.sh.json` groupings; `motion.bundle.yaml` for a `/motion` shortcut.
 - `tests/smoke.sh` runs every script on synthetic media; CI also scaffolds + lints a HyperFrames project.
+
+## 0.2.2 — unreleased
+- Fix: `ELEVENLABS_API_KEY` (mp-audio) and `KIE_API_KEY` (mp-genclip) are now declared with `optional: true`. Before, Hermes treated them as required, flagged the skills "setup needed" and asked for the keys on load, although voice-over and AI clips are optional.

@@ -9,6 +9,7 @@ metadata:
     category: motion
 required_environment_variables:
   - name: KIE_API_KEY
+    optional: true
     prompt: kie.ai API key
     help: Get a key at https://kie.ai — optional if the kie.ai MCP is connected in Hermes
     required_for: AI clip generation
