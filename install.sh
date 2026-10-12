@@ -29,8 +29,16 @@ mkdir -p "$HOME/motion-studio"; [ -f "$HOME/motion-studio/STUDIO.json" ] || echo
 echo
 echo "Optional /motion shortcut: cp motion.bundle.yaml ~/.hermes/skill-bundles/motion.yaml"
 echo
-echo "Also install the official HyperFrames skill (composition format):"
-echo "  hermes skills install official/creative/hyperframes"
+OPT="$HOME/.hermes/hermes-agent/optional-skills/creative/hyperframes"
+HF="$HOME/.hermes/skills/creative/hyperframes"
+if [ "$TARGET" = "${HOME}/.hermes/skills/motion" ] && [ -d "$OPT" ] && [ ! -d "$HF" ]; then
+  # 'hermes skills install official/creative/hyperframes' reports "already installed" when only this optional copy exists
+  mkdir -p "$(dirname "$HF")" && cp -r "$OPT" "$HF" && ok "official HyperFrames skill copied from Hermes optional-skills"
+else
+  echo "Also install the official HyperFrames skill (composition format):"
+  echo "  hermes skills install official/creative/hyperframes"
+  echo "  (says \"already installed\" but not in 'hermes skills list'? cp -r $OPT $HF)"
+fi
 echo
 echo "Then start a new Hermes session (or /reset) and type:"
 echo "  /motion-pack Mach mir einen 15-Sekunden-Reel für <Thema>"
