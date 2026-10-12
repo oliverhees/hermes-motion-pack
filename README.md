@@ -18,7 +18,7 @@
 
 **🇬🇧 English** · [🇩🇪 Deutsch](README.de.md)
 
-[Install](#-install) · [Use](#-use) · [What's inside](#-whats-inside) · [How it works](#-how-it-works) · [Prompts](prompts/README.md) · [Beginner guide](docs/START-HERE.md) · [License](#-license)
+[Install](#-install) · [Use](#-use) · [When to use what](#-when-to-use-what) · [What's inside](#-whats-inside) · [How it works](#-how-it-works) · [Prompts](prompts/README.md) · [Beginner guide](docs/START-HERE.md) · [License](#-license)
 
 </div>
 
@@ -102,26 +102,22 @@ you: /motion-pack Mach mir einen 15-Sekunden-Reel für mein Tool
 **Requirements:** Hermes Agent · Node ≥ 22 · ffmpeg · Python 3 (+ `numpy` for beat detection).
 Optional: `ELEVENLABS_API_KEY` for voice-over, `KIE_API_KEY` or the kie.ai MCP for AI clips.
 
-**Lazy mode — let Hermes install it:** paste the prompt from [docs/HERMES-INSTALL-PROMPT.md](docs/HERMES-INSTALL-PROMPT.md) into any Hermes chat. It checks dependencies, installs the skills and keys, and ends with a test render.
+**Let Hermes install it:** paste this prompt into any Hermes chat (CLI, Desktop, Telegram). It checks dependencies, installs the skills, asks for optional keys and ends with a test render. A German version is in [docs/HERMES-INSTALL-PROMPT.md](docs/HERMES-INSTALL-PROMPT.md).
 
-**One line in Hermes:**
-
-```bash
-hermes skills tap add oliverhees/hermes-motion-pack && for s in motion-pack mp-brief mp-style mp-storyboard mp-build mp-audio mp-critique mp-ship mp-footage mp-genclip mp-highlight; do hermes skills install oliverhees/hermes-motion-pack/$s; done && hermes skills install official/creative/hyperframes
 ```
+Please install hermes-motion-pack (github.com/oliverhees/hermes-motion-pack) completely and on your own. Do it in this order and report a short OK or what's missing after each step:
 
-That adds the repo as a skill tap, installs the 11 skills with Hermes' security scan, and the
-official HyperFrames skill (the composition format). Start a new session afterwards.
-
-**Alternative — git clone:**
-
-```bash
-git clone https://github.com/oliverhees/hermes-motion-pack.git && cd hermes-motion-pack
-bash install.sh                                      # checks deps, copies skills to ~/.hermes/skills/motion/
-hermes skills install official/creative/hyperframes
+1. Check prerequisites: node >= 22, ffmpeg, python3, numpy. Install whatever is missing with this system's package manager (node: nodejs.org / nvm; numpy: pip install numpy). Skip nothing silently.
+2. Add the repo as a skill tap: hermes skills tap add oliverhees/hermes-motion-pack
+3. Install these 11 skills (confirm the security scan if asked): motion-pack, mp-brief, mp-style, mp-storyboard, mp-build, mp-audio, mp-critique, mp-ship, mp-footage, mp-genclip, mp-highlight — each with: hermes skills install oliverhees/hermes-motion-pack/<skill>
+   If the tap route fails: clone the repo to ~/motion-studio/hermes-motion-pack and run bash install.sh there.
+4. Install the official HyperFrames skill: hermes skills install official/creative/hyperframes
+5. Verify that npx hyperframes --version works (first call downloads it).
+6. Create the /motion shortcut: copy motion.bundle.yaml from the repo to ~/.hermes/skill-bundles/motion.yaml (clone the repo if needed).
+7. Ask me whether I want to add an ELEVENLABS_API_KEY (voice-over) and a KIE_API_KEY (AI clips) — if yes, store them in ~/.hermes/.env and never echo them in chat. Without keys everything works except voice and AI clips.
+8. Test run: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (adjust the path if needed), then run npx hyperframes lint and npx hyperframes render --quality draft --output out/test.mp4 there. If an MP4 appears, you're done.
+9. Finally: show hermes skills list, run /reload-skills and tell me in three lines: ✅ installed, ⚠️ what's missing, 👉 my first command (e.g. /motion-pack Make me a 15-second reel for …).
 ```
-
-**Optional `/motion` shortcut:** copy `motion.bundle.yaml` to `~/.hermes/skill-bundles/motion.yaml` — then `/motion <request>` loads the whole pack at once.
 
 **Other agents:** `bash install.sh --target .claude/skills` (Claude Code) or any folder that loads `SKILL.md` skills. The prompts in `prompts/` work anywhere.
 
@@ -137,6 +133,55 @@ hermes skills install official/creative/hyperframes
 ```
 
 Hermes asks ≤ 3 questions, then runs the chain. You say OK at each gate. "Wo waren wir?" resumes any project.
+
+## 🧭 When to use what
+
+**Rule of thumb:** start with `/motion-pack`. It runs the whole chain and calls the right sub-skill itself. Use a single `mp-*` skill only to redo one step. Use a prompt from [`prompts/`](prompts/README.md) when you already know what kind of video you want.
+
+### Pick by situation
+
+| Your situation | Do this | Prompt template |
+| --- | --- | --- |
+| Product or tool, no footage, need a spot | `/motion-pack` + one sentence | [01 product spot](prompts/01-product-spot-30s.md), [06 UI showcase](prompts/06-ui-showcase-30s.md) |
+| Social hook, words and numbers only | `/motion-pack` | [02 kinetic typography](prompts/02-reel-kinetic-typography.md), [08 quote](prompts/08-quote-manifesto-reel.md), [05 data story](prompts/05-data-story-20s.md) |
+| Launch or date reveal | `/motion-pack` | [03 launch teaser](prompts/03-launch-teaser-8s.md) |
+| Logo animation, loopable | `/motion-pack` | [04 logo sting](prompts/04-logo-sting-loop.md) |
+| Before/after, comparison | `/motion-pack` | [07 before/after](prompts/07-before-after-reel.md) |
+| **You have footage** (gameplay, event, vlog) | `/motion-pack` + folder path. It runs `mp-footage`, then `mp-highlight` | [09 highlight reel](prompts/09-highlight-reel-footage.md), [11 event recap](prompts/11-event-recap.md) |
+| **No footage, want cinematic shots** | `/motion-pack` + "generate the clips". It runs `mp-genclip` (needs `KIE_API_KEY`) | [10 trailer with AI clips](prompts/10-trailer-ai-clips.md) |
+| A render exists and looks cheap or off | `/mp-critique` | none |
+| Different look, same story | `/mp-style`, then `/mp-build` | none |
+| Voice-over, music or loudness is wrong | `/mp-audio` (voice needs `ELEVENLABS_API_KEY`) | none |
+| Approved, need every format | `/mp-ship` | none |
+| Coming back after a break | "Wo waren wir?" | none |
+
+### Pick by step
+
+| Step | Skill | Run it alone when | You get |
+| --- | --- | --- | --- |
+| 1 | `mp-brief` | You are unsure what the video should do | `BRIEF.md` |
+| 2 | `mp-style` | You want a new look | `STYLE.md` (8 presets) |
+| 3 | `mp-storyboard` | The pacing or order of beats is wrong | `STORYBOARD.md` |
+| 4 | `mp-build` | One scene needs a change, or a re-render | HyperFrames project, draft MP4 |
+| 5 | `mp-audio` | Sound is the problem | mixed audio at -14 LUFS |
+| 6 | `mp-critique` | Anything looks "not quite right" | scores 1-10, top 3 problems |
+| 7 | `mp-ship` | Critique is green | final renders, `DELIVERY.md` |
+| side | `mp-footage` / `mp-genclip` / `mp-highlight` | You work with real or AI footage | `SHOTLIST.json`, beat-synced cut |
+
+### A typical session
+
+1. `/motion-pack Make me a 15-second reel for <your tool>, 9:16, German`
+2. Answer the 3 questions, then approve the brief, the look and the storyboard (the gates).
+3. Watch the draft render. If it feels off, run `/mp-critique` or say what bothers you in plain words.
+4. Repeat until every score is 8 or higher, then say "ship it" to get all formats plus `DELIVERY.md`.
+5. Say yes to the offer to save the pipeline as a skill. The next video in this style is then one sentence.
+
+### Pitfalls
+
+- **Skipping the questions** produces generic videos. The brief is the cheapest place to fix things.
+- **Rendering finals too early** wastes time. Iterate on drafts and ship only after critique is green.
+- **No keys is fine**: everything works except voice-over (ElevenLabs) and AI clips (kie.ai).
+- **Footage videos** need a folder path, not a description. Give Hermes the real files.
 
 ## 🧪 Tests
 
