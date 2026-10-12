@@ -21,7 +21,7 @@ if not key:
             if line.startswith('ELEVENLABS_API_KEY='):
                 key = line.split('=', 1)[1].strip().strip('"')
 if not key:
-    sys.exit('ELEVENLABS_API_KEY not set (env, ~/.hermes/.env or ~/motion-studio/.env)')
+    sys.exit('ElevenLabs key not found: run `hermes setup`, or put it in the studio .env')
 
 text = open(a.text_file, encoding='utf-8').read().strip()
 body = {'text': text, 'model_id': a.model,
