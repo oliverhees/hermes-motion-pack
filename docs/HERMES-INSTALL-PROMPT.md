@@ -14,7 +14,7 @@ Installier mir bitte den hermes-motion-pack (github.com/oliverhees/hermes-motion
 4. Den offiziellen HyperFrames-Skill installieren: hermes skills install official/creative/hyperframes
 5. Prüfen, dass npx hyperframes --version läuft (beim ersten Mal wird es heruntergeladen).
 6. Den /motion-Shortcut anlegen: motion.bundle.yaml aus dem Repo nach ~/.hermes/skill-bundles/motion.yaml kopieren (Repo dafür notfalls klonen).
-7. Mich fragen, ob ich einen ELEVENLABS_API_KEY (Sprecherstimme) und einen KIE_API_KEY (KI-Clips) eintragen will – wenn ja, in ~/.hermes/.env speichern, niemals im Chat wiederholen. Ohne Keys läuft alles außer Stimme und KI-Clips.
+7. Mich fragen, ob ich die optionalen Extras einrichten will: (a) Sprecherstimme: Hermes hat ElevenLabs bereits eingebaut, ich trage meinen ElevenLabs-Key direkt in Hermes ein (`hermes setup`), niemals im Chat; (b) KI-Clips: den kie.ai-MCP-Server von https://github.com/oliverhees/kie-ai-mcp-server in Hermes verbinden (`hermes mcp add`), der kie.ai-Key liegt auf diesem Server. Ohne sie läuft alles außer Stimme und KI-Clips.
 8. Testlauf: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (Pfad notfalls anpassen), dann dort npx hyperframes lint und npx hyperframes render --quality draft --output out/test.mp4. Wenn ein MP4 entsteht, bist du fertig.
 9. Am Ende: hermes skills list zeigen, /reload-skills ausführen und mir in drei Zeilen sagen: ✅ installiert, ⚠️ was fehlt, 👉 mein erster Befehl (z. B. /motion-pack Mach mir einen 15-Sekunden-Reel für …).
 ```
@@ -31,7 +31,7 @@ Please install hermes-motion-pack (github.com/oliverhees/hermes-motion-pack) com
 4. Install the official HyperFrames skill: hermes skills install official/creative/hyperframes
 5. Verify that npx hyperframes --version works (first call downloads it).
 6. Create the /motion shortcut: copy motion.bundle.yaml from the repo to ~/.hermes/skill-bundles/motion.yaml (clone the repo if needed).
-7. Ask me whether I want to add an ELEVENLABS_API_KEY (voice-over) and a KIE_API_KEY (AI clips) — if yes, store them in ~/.hermes/.env and never echo them in chat. Without keys everything works except voice and AI clips.
+7. Ask me whether I want to set up the optional extras: (a) voice-over: Hermes has built-in ElevenLabs support, so I enter my ElevenLabs key directly in Hermes (`hermes setup`), never in chat; (b) AI clips: connect the kie.ai MCP server from https://github.com/oliverhees/kie-ai-mcp-server in Hermes (`hermes mcp add`), the kie.ai key lives on that server. Without them everything works except voice and AI clips.
 8. Test run: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (adjust the path if needed), then run npx hyperframes lint and npx hyperframes render --quality draft --output out/test.mp4 there. If an MP4 appears, you're done.
 9. Finally: show hermes skills list, run /reload-skills and tell me in three lines: ✅ installed, ⚠️ what's missing, 👉 my first command (e.g. /motion-pack Make me a 15-second reel for …).
 ```

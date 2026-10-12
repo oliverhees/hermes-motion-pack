@@ -24,8 +24,8 @@ Hermes scans each skill and asks you to confirm (community source). Say yes.
 *No `hermes` CLI (Desktop App only)?* Clone the repo and run `bash install.sh`; it copies the skills into `~/.hermes/skills/motion/`.
 
 ## 3. Optional keys
-- Voice-over: put `ELEVENLABS_API_KEY=...` in `~/.hermes/.env` (Hermes asks for it the first time `mp-audio` loads).
-- AI clips: connect the kie.ai MCP in Hermes, or put `KIE_API_KEY=...` in `~/.hermes/.env`.
+- Voice-over: Hermes has built-in ElevenLabs support. Enter your ElevenLabs key directly in Hermes (`hermes setup`).
+- AI clips: connect our kie.ai MCP server (https://github.com/oliverhees/kie-ai-mcp-server) in Hermes (`hermes mcp add`). The kie.ai key lives on that server.
 
 **Done when:** the keys are in `.env` — or you decided to go without voice / AI clips (everything else works).
 

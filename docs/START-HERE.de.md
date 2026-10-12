@@ -24,8 +24,8 @@ Hermes scannt jeden Skill und fragt nach Bestätigung (Community-Quelle). Sag ja
 *Kein `hermes`-CLI (nur Desktop-App)?* Repo klonen und `bash install.sh` ausführen; es kopiert die Skills nach `~/.hermes/skills/motion/`.
 
 ## 3. Optionale Keys
-- Sprecherstimme: `ELEVENLABS_API_KEY=...` in `~/.hermes/.env` (Hermes fragt beim ersten Laden von `mp-audio` danach).
-- KI-Clips: kie.ai-MCP in Hermes verbinden, oder `KIE_API_KEY=...` in `~/.hermes/.env`.
+- Sprecherstimme: Hermes hat ElevenLabs bereits eingebaut. Den ElevenLabs-Key direkt in Hermes eintragen (`hermes setup`).
+- KI-Clips: unseren kie.ai-MCP-Server (https://github.com/oliverhees/kie-ai-mcp-server) in Hermes verbinden (`hermes mcp add`). Der kie.ai-Key liegt auf dem MCP-Server.
 
 **Fertig, wenn:** die Keys in `.env` stehen — oder du dich gegen Stimme / KI-Clips entschieden hast (alles andere läuft).
 

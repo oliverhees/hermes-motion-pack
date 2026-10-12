@@ -100,7 +100,7 @@ you: /motion-pack Mach mir einen 15-Sekunden-Reel für mein Tool
 ## 🚀 Install
 
 **Requirements:** Hermes Agent · Node ≥ 22 · ffmpeg · Python 3 (+ `numpy` for beat detection).
-Optional: `ELEVENLABS_API_KEY` for voice-over, `KIE_API_KEY` or the kie.ai MCP for AI clips.
+Optional: voice-over via the ElevenLabs support built into Hermes (enter the key in `hermes setup`); AI clips via our [kie.ai MCP server](https://github.com/oliverhees/kie-ai-mcp-server) connected in Hermes.
 
 **Let Hermes install it:** paste this prompt into any Hermes chat (CLI, Desktop, Telegram). It checks dependencies, installs the skills, asks for optional keys and ends with a test render. A German version is in [docs/HERMES-INSTALL-PROMPT.md](docs/HERMES-INSTALL-PROMPT.md).
 
@@ -114,7 +114,7 @@ Please install hermes-motion-pack (github.com/oliverhees/hermes-motion-pack) com
 4. Install the official HyperFrames skill: hermes skills install official/creative/hyperframes
 5. Verify that npx hyperframes --version works (first call downloads it).
 6. Create the /motion shortcut: copy motion.bundle.yaml from the repo to ~/.hermes/skill-bundles/motion.yaml (clone the repo if needed).
-7. Ask me whether I want to add an ELEVENLABS_API_KEY (voice-over) and a KIE_API_KEY (AI clips) — if yes, store them in ~/.hermes/.env and never echo them in chat. Without keys everything works except voice and AI clips.
+7. Ask me whether I want to set up the optional extras: (a) voice-over: Hermes has built-in ElevenLabs support, so I enter my ElevenLabs key directly in Hermes (`hermes setup`), never in chat; (b) AI clips: connect the kie.ai MCP server from https://github.com/oliverhees/kie-ai-mcp-server in Hermes (`hermes mcp add`), the kie.ai key lives on that server. Without them everything works except voice and AI clips.
 8. Test run: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (adjust the path if needed), then run npx hyperframes lint and npx hyperframes render --quality draft --output out/test.mp4 there. If an MP4 appears, you're done.
 9. Finally: show hermes skills list, run /reload-skills and tell me in three lines: ✅ installed, ⚠️ what's missing, 👉 my first command (e.g. /motion-pack Make me a 15-second reel for …).
 ```
@@ -134,6 +134,22 @@ Please install hermes-motion-pack (github.com/oliverhees/hermes-motion-pack) com
 
 Hermes asks ≤ 3 questions, then runs the chain. You say OK at each gate. "Wo waren wir?" resumes any project.
 
+## 🔌 Level up with ElevenLabs and kie.ai
+
+The pack runs fully without keys: code-built motion graphics, and edits of your own footage. Two optional connections add what code and ffmpeg cannot do alone:
+
+| | Without extras | + ElevenLabs | + kie.ai MCP |
+| --- | --- | --- | --- |
+| **Visuals** | Motion graphics as code, cuts of your own footage | same | **AI clips** (Seedance, Veo, Kling) and **AI stills** (gpt-image, nano-banana) as shots for trailers and highlight reels, look-locked, with cost shown first |
+| **Voice** | Silent + music | **Voice-over** in the language and voice you pick, with word timestamps so captions and cuts land on the words | same |
+| **Videos you can make** | Spots, reels, typography, data stories, recaps from your footage | Explainers and product films with narration | **Trailers and cinematic teasers without any footage** |
+
+**How to connect them**
+- **ElevenLabs:** Hermes has built-in ElevenLabs support. Enter your key directly in Hermes (`hermes setup`). The pack's `mp-audio` uses the same key.
+- **kie.ai:** connect our [kie.ai MCP server](https://github.com/oliverhees/kie-ai-mcp-server) in Hermes (`hermes mcp add`). The kie.ai key lives on that server, never in the pack.
+
+The kie.ai MCP also offers music (Suno), sound effects, upscaling and background removal. The skills do not call these automatically yet, but you can ask Hermes for them in the same chat, for example a custom music bed for a trailer.
+
 ## 🧭 When to use what
 
 **Rule of thumb:** start with `/motion-pack`. It runs the whole chain and calls the right sub-skill itself. Use a single `mp-*` skill only to redo one step. Use a prompt from [`prompts/`](prompts/README.md) when you already know what kind of video you want.
@@ -148,10 +164,10 @@ Hermes asks ≤ 3 questions, then runs the chain. You say OK at each gate. "Wo w
 | Logo animation, loopable | `/motion-pack` | [04 logo sting](prompts/04-logo-sting-loop.md) |
 | Before/after, comparison | `/motion-pack` | [07 before/after](prompts/07-before-after-reel.md) |
 | **You have footage** (gameplay, event, vlog) | `/motion-pack` + folder path. It runs `mp-footage`, then `mp-highlight` | [09 highlight reel](prompts/09-highlight-reel-footage.md), [11 event recap](prompts/11-event-recap.md) |
-| **No footage, want cinematic shots** | `/motion-pack` + "generate the clips". It runs `mp-genclip` (needs `KIE_API_KEY`) | [10 trailer with AI clips](prompts/10-trailer-ai-clips.md) |
+| **No footage, want cinematic shots** | `/motion-pack` + "generate the clips". It runs `mp-genclip` (needs the [kie.ai MCP](https://github.com/oliverhees/kie-ai-mcp-server)) | [10 trailer with AI clips](prompts/10-trailer-ai-clips.md) |
 | A render exists and looks cheap or off | `/mp-critique` | none |
 | Different look, same story | `/mp-style`, then `/mp-build` | none |
-| Voice-over, music or loudness is wrong | `/mp-audio` (voice needs `ELEVENLABS_API_KEY`) | none |
+| Voice-over, music or loudness is wrong | `/mp-audio` (voice needs your ElevenLabs key in Hermes) | none |
 | Approved, need every format | `/mp-ship` | none |
 | Coming back after a break | "Wo waren wir?" | none |
 
@@ -180,7 +196,7 @@ Hermes asks ≤ 3 questions, then runs the chain. You say OK at each gate. "Wo w
 
 - **Skipping the questions** produces generic videos. The brief is the cheapest place to fix things.
 - **Rendering finals too early** wastes time. Iterate on drafts and ship only after critique is green.
-- **No keys is fine**: everything works except voice-over (ElevenLabs) and AI clips (kie.ai).
+- **The extras are optional**: everything works except voice-over (ElevenLabs key in Hermes) and AI clips (kie.ai MCP).
 - **Footage videos** need a folder path, not a description. Give Hermes the real files.
 
 ## 🧪 Tests

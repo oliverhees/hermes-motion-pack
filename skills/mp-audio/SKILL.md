@@ -11,14 +11,14 @@ required_environment_variables:
   - name: ELEVENLABS_API_KEY
     optional: true
     prompt: ElevenLabs API key
-    help: Get a key at https://elevenlabs.io — optional, only for voice-over
+    help: Optional, only for voice-over. Hermes has built-in ElevenLabs support, so enter the key directly in Hermes (hermes setup). Get one at https://elevenlabs.io
     required_for: voice-over (music + SFX work without it)
 ---
 
 # mp-audio — voice, music, SFX, loudness
 
 ## Keys
-- `ELEVENLABS_API_KEY` from the environment or a `.env` in the studio root. Never write a key into a file, log, prompt or answer. Missing key → say so, offer "silent + music only".
+- `ELEVENLABS_API_KEY` is the key Hermes already manages for its ElevenLabs support: enter it in Hermes (`hermes setup`). The script also reads `~/.hermes/.env` and a `.env` in the studio root. Never write a key into a file, log, prompt or answer. Missing key → say so, offer "silent + music only".
 - Voice ID and model come from the user (BRIEF.md). No default voice ID is shipped; ask or let the user pick from their ElevenLabs library.
 
 ## Steps

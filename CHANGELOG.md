@@ -18,3 +18,4 @@
 
 ## 0.2.2 — unreleased
 - Fix: `ELEVENLABS_API_KEY` (mp-audio) and `KIE_API_KEY` (mp-genclip) are now declared with `optional: true`. Before, Hermes treated them as required, flagged the skills "setup needed" and asked for the keys on load, although voice-over and AI clips are optional.
+- Docs and skills: ElevenLabs key is entered in Hermes (built-in support; `tts_elevenlabs.py` also reads `~/.hermes/.env`). AI clips now require the [kie.ai MCP server](https://github.com/oliverhees/kie-ai-mcp-server); `KIE_API_KEY` and the REST fallback are removed from `mp-genclip`. New README section "Level up with ElevenLabs and kie.ai".

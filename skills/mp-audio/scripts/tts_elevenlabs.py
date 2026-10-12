@@ -13,13 +13,15 @@ a = ap.parse_args()
 
 key = os.environ.get('ELEVENLABS_API_KEY')
 if not key:
-    env = os.path.expanduser('~/motion-studio/.env')
-    if os.path.exists(env):
+    for env in (os.path.join(os.environ.get('HERMES_HOME', '~/.hermes'), '.env'), '~/motion-studio/.env'):
+        env = os.path.expanduser(env)
+        if key or not os.path.exists(env):
+            continue
         for line in open(env):
             if line.startswith('ELEVENLABS_API_KEY='):
                 key = line.split('=', 1)[1].strip().strip('"')
 if not key:
-    sys.exit('ELEVENLABS_API_KEY not set (env or ~/motion-studio/.env)')
+    sys.exit('ELEVENLABS_API_KEY not set (env, ~/.hermes/.env or ~/motion-studio/.env)')
 
 text = open(a.text_file, encoding='utf-8').read().strip()
 body = {'text': text, 'model_id': a.model,

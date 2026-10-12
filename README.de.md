@@ -102,7 +102,7 @@ du: /motion-pack Mach mir einen 15-Sekunden-Reel für mein Tool
 ## 🚀 Installation
 
 **Voraussetzungen:** Hermes Agent · Node ≥ 22 · ffmpeg · Python 3 (+ `numpy` für die Beat-Erkennung).
-Optional: `ELEVENLABS_API_KEY` für Sprecherstimme, `KIE_API_KEY` oder das kie.ai-MCP für KI-Clips.
+Optional: Sprecherstimme über die in Hermes eingebaute ElevenLabs-Unterstützung (Key in `hermes setup` eintragen); KI-Clips über unseren [kie.ai-MCP-Server](https://github.com/oliverhees/kie-ai-mcp-server), in Hermes verbunden.
 
 **Hermes installiert selbst:** diesen Prompt in einen beliebigen Hermes-Chat einfügen (CLI, Desktop, Telegram). Er prüft die Abhängigkeiten, installiert die Skills, fragt nach optionalen Keys und endet mit einem Test-Render.
 
@@ -116,7 +116,7 @@ Installier mir bitte den hermes-motion-pack (github.com/oliverhees/hermes-motion
 4. Den offiziellen HyperFrames-Skill installieren: hermes skills install official/creative/hyperframes
 5. Prüfen, dass npx hyperframes --version läuft (beim ersten Mal wird es heruntergeladen).
 6. Den /motion-Shortcut anlegen: motion.bundle.yaml aus dem Repo nach ~/.hermes/skill-bundles/motion.yaml kopieren (Repo dafür notfalls klonen).
-7. Mich fragen, ob ich einen ELEVENLABS_API_KEY (Sprecherstimme) und einen KIE_API_KEY (KI-Clips) eintragen will – wenn ja, in ~/.hermes/.env speichern, niemals im Chat wiederholen. Ohne Keys läuft alles außer Stimme und KI-Clips.
+7. Mich fragen, ob ich die optionalen Extras einrichten will: (a) Sprecherstimme: Hermes hat ElevenLabs bereits eingebaut, ich trage meinen ElevenLabs-Key direkt in Hermes ein (`hermes setup`), niemals im Chat; (b) KI-Clips: den kie.ai-MCP-Server von https://github.com/oliverhees/kie-ai-mcp-server in Hermes verbinden (`hermes mcp add`), der kie.ai-Key liegt auf diesem Server. Ohne sie läuft alles außer Stimme und KI-Clips.
 8. Testlauf: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (Pfad notfalls anpassen), dann dort npx hyperframes lint und npx hyperframes render --quality draft --output out/test.mp4. Wenn ein MP4 entsteht, bist du fertig.
 9. Am Ende: hermes skills list zeigen, /reload-skills ausführen und mir in drei Zeilen sagen: ✅ installiert, ⚠️ was fehlt, 👉 mein erster Befehl (z. B. /motion-pack Mach mir einen 15-Sekunden-Reel für …).
 ```
@@ -136,6 +136,22 @@ Installier mir bitte den hermes-motion-pack (github.com/oliverhees/hermes-motion
 
 Hermes stellt ≤ 3 Fragen, dann läuft die Kette. Du sagst an jedem Tor OK. „Wo waren wir?" setzt jedes Projekt fort.
 
+## 🔌 Mehr erreichen mit ElevenLabs und kie.ai
+
+Das Pack läuft komplett ohne Keys: Motion Graphics als Code und Schnitte aus deinem eigenen Footage. Zwei optionale Verbindungen ergänzen, was Code und ffmpeg allein nicht können:
+
+| | Ohne Extras | + ElevenLabs | + kie.ai-MCP |
+| --- | --- | --- | --- |
+| **Bilder** | Motion Graphics als Code, Schnitte aus eigenem Footage | wie links | **KI-Clips** (Seedance, Veo, Kling) und **KI-Standbilder** (gpt-image, nano-banana) als Shots für Trailer und Highlight-Reels, Look-gelockt, Kosten vorher |
+| **Stimme** | Stumm + Musik | **Sprecherstimme** in Sprache und Stimme deiner Wahl, mit Wort-Zeitstempeln, damit Untertitel und Schnitte auf den Worten sitzen | wie links |
+| **Videos, die du machen kannst** | Spots, Reels, Typografie, Data Stories, Recaps aus deinem Footage | Erklärvideos und Produktfilme mit Sprecher | **Trailer und cinematische Teaser komplett ohne Footage** |
+
+**So verbindest du sie**
+- **ElevenLabs:** Hermes hat ElevenLabs bereits eingebaut. Trag deinen Key direkt in Hermes ein (`hermes setup`). `mp-audio` im Pack nutzt denselben Key.
+- **kie.ai:** verbinde unseren [kie.ai-MCP-Server](https://github.com/oliverhees/kie-ai-mcp-server) in Hermes (`hermes mcp add`). Der kie.ai-Key liegt auf diesem Server, nie im Pack.
+
+Der kie.ai-MCP bietet außerdem Musik (Suno), Soundeffekte, Upscaling und Freistellen. Die Skills rufen diese noch nicht automatisch auf, aber du kannst Hermes im selben Chat danach fragen, zum Beispiel nach einem eigenen Musikbett für einen Trailer.
+
 ## 🧭 Wann nutze ich was?
 
 **Faustregel:** Starte mit `/motion-pack`. Das führt durch die ganze Kette und ruft die passenden Teil-Skills selbst auf. Einen einzelnen `mp-*`-Skill nimmst du nur, um genau einen Schritt zu wiederholen. Eine Vorlage aus [`prompts/`](prompts/README.md) nimmst du, wenn du schon weißt, welche Art Video du willst.
@@ -150,10 +166,10 @@ Hermes stellt ≤ 3 Fragen, dann läuft die Kette. Du sagst an jedem Tor OK. „
 | Logo-Animation, loopbar | `/motion-pack` | [04 Logo-Sting](prompts/04-logo-sting-loop.md) |
 | Vorher/Nachher, Vergleich | `/motion-pack` | [07 Vorher/Nachher](prompts/07-before-after-reel.md) |
 | **Du hast Footage** (Gameplay, Event, Vlog) | `/motion-pack` + Ordnerpfad. Es läuft `mp-footage`, dann `mp-highlight` | [09 Highlight-Reel](prompts/09-highlight-reel-footage.md), [11 Event-Recap](prompts/11-event-recap.md) |
-| **Kein Footage, aber cinematische Shots** | `/motion-pack` + „generier die Clips“. Es läuft `mp-genclip` (braucht `KIE_API_KEY`) | [10 Trailer mit KI-Clips](prompts/10-trailer-ai-clips.md) |
+| **Kein Footage, aber cinematische Shots** | `/motion-pack` + „generier die Clips“. Es läuft `mp-genclip` (braucht den [kie.ai-MCP](https://github.com/oliverhees/kie-ai-mcp-server)) | [10 Trailer mit KI-Clips](prompts/10-trailer-ai-clips.md) |
 | Ein Render existiert und sieht billig oder falsch aus | `/mp-critique` | keine |
 | Anderer Look, gleiche Story | `/mp-style`, dann `/mp-build` | keine |
-| Stimme, Musik oder Lautstärke stimmt nicht | `/mp-audio` (Stimme braucht `ELEVENLABS_API_KEY`) | keine |
+| Stimme, Musik oder Lautstärke stimmt nicht | `/mp-audio` (Stimme braucht deinen ElevenLabs-Key in Hermes) | keine |
 | Freigegeben, du brauchst alle Formate | `/mp-ship` | keine |
 | Du kommst nach einer Pause zurück | „Wo waren wir?“ | keine |
 
@@ -182,7 +198,7 @@ Hermes stellt ≤ 3 Fragen, dann läuft die Kette. Du sagst an jedem Tor OK. „
 
 - **Fragen überspringen** führt zu generischen Videos. Im Brief lässt sich am billigsten korrigieren.
 - **Zu früh final rendern** kostet Zeit. Auf Drafts iterieren und erst nach grüner Kritik shippen.
-- **Ohne Keys geht trotzdem viel**: alles außer Sprecherstimme (ElevenLabs) und KI-Clips (kie.ai).
+- **Die Extras sind optional**: alles außer Sprecherstimme (ElevenLabs-Key in Hermes) und KI-Clips (kie.ai-MCP) läuft ohne.
 - **Bei Footage** brauchst du einen Ordnerpfad, keine Beschreibung. Gib Hermes die echten Dateien.
 
 ## 🧪 Tests
