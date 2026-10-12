@@ -17,7 +17,7 @@ command -v ffmpeg >/dev/null && ok "ffmpeg $(ffmpeg -version | head -1 | awk '{p
 command -v python3 >/dev/null && ok "python3" || warn "python3 missing (needed for TTS, footage scan, beat grid)"
 python3 -c "import numpy" 2>/dev/null && ok "numpy (beat detection)" || warn "numpy missing: pip install numpy (needed by mp-highlight/beats.py)"
 command -v hermes >/dev/null && ok "hermes CLI" || warn "hermes CLI not on PATH (fine if you only use the Desktop App)"
-[ -n "${ELEVENLABS_API_KEY:-}" ] && ok "ELEVENLABS_API_KEY set" || warn "ELEVENLABS_API_KEY not set (voice-over optional; put it in ~/motion-studio/.env)"
+[ -n "${ELEVENLABS_API_KEY:-}" ] && ok "ELEVENLABS_API_KEY set" || warn "ELEVENLABS_API_KEY not set (voice-over optional; enter it in Hermes: hermes setup)"
 if npx --yes hyperframes --version >/dev/null 2>&1; then ok "hyperframes CLI reachable via npx"; else warn "hyperframes not yet cached — first 'npx hyperframes' call downloads it"; fi
 [ $CHECK -eq 1 ] && exit 0
 
