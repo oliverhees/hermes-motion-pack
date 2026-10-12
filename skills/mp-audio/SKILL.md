@@ -9,6 +9,7 @@ metadata:
     category: motion
 required_environment_variables:
   - name: ELEVENLABS_API_KEY
+    optional: true
     prompt: ElevenLabs API key
     help: Get a key at https://elevenlabs.io — optional, only for voice-over
     required_for: voice-over (music + SFX work without it)
