@@ -109,14 +109,14 @@ Please install hermes-motion-pack (github.com/oliverhees/hermes-motion-pack) com
 
 1. Check prerequisites: node >= 22, ffmpeg, python3, numpy. Install whatever is missing with this system's package manager (node: nodejs.org / nvm; numpy: pip install numpy). Skip nothing silently.
 2. Add the repo as a skill tap: hermes skills tap add oliverhees/hermes-motion-pack
-3. Install these 11 skills (confirm the security scan if asked): motion-pack, mp-brief, mp-style, mp-storyboard, mp-build, mp-audio, mp-critique, mp-ship, mp-footage, mp-genclip, mp-highlight — each with: hermes skills install oliverhees/hermes-motion-pack/<skill>
+3. Install these 11 skills (confirm the security scan if asked): motion-pack, mp-brief, mp-style, mp-storyboard, mp-build, mp-audio, mp-critique, mp-ship, mp-footage, mp-genclip, mp-highlight — each with: hermes skills install oliverhees/hermes-motion-pack/<skill> (2–3 per command, not all in one go). If the security scan blocks a skill: show me the flagged lines, check them against the repo, and only if they are harmless copy that skill manually: cp -r <repo>/skills/<skill> ~/.hermes/skills/<skill>
    If the tap route fails: clone the repo to ~/motion-studio/hermes-motion-pack and run bash install.sh there.
-4. Install the official HyperFrames skill: hermes skills install official/creative/hyperframes
+4. Install the official HyperFrames skill: hermes skills install official/creative/hyperframes (if it says "already installed" but the skill is not in hermes skills list: cp -r ~/.hermes/hermes-agent/optional-skills/creative/hyperframes ~/.hermes/skills/creative/hyperframes)
 5. Verify that npx hyperframes --version works (first call downloads it).
 6. Create the /motion shortcut: copy motion.bundle.yaml from the repo to ~/.hermes/skill-bundles/motion.yaml (clone the repo if needed).
 7. Ask me whether I want to set up the optional extras: (a) voice-over: Hermes has built-in ElevenLabs support, so I enter my ElevenLabs key directly in Hermes (`hermes setup`), never in chat; (b) AI clips: connect the kie.ai MCP server from https://github.com/oliverhees/kie-ai-mcp-server in Hermes (`hermes mcp add`), the kie.ai key lives on that server. Without them everything works except voice and AI clips.
 8. Test run: bash ~/.hermes/skills/motion/mp-build/scripts/init_project.sh ~/motion-studio/_smoketest 1080 1920 30 2 (adjust the path if needed), then run npx hyperframes lint and npx hyperframes render --quality draft --output out/test.mp4 there. If an MP4 appears, you're done.
-9. Finally: show hermes skills list, run /reload-skills and tell me in three lines: ✅ installed, ⚠️ what's missing, 👉 my first command (e.g. /motion-pack Make me a 15-second reel for …).
+9. Finally: show hermes skills list, tell me to type /reload-skills myself (it is a chat command) and tell me in three lines: ✅ installed, ⚠️ what's missing, 👉 my first command (e.g. /motion-pack Make me a 15-second reel for …).
 ```
 
 **Other agents:** `bash install.sh --target .claude/skills` (Claude Code) or any folder that loads `SKILL.md` skills. The prompts in `prompts/` work anywhere.

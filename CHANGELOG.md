@@ -21,3 +21,5 @@
 - Docs and skills: ElevenLabs key is entered in Hermes (built-in support; `tts_elevenlabs.py` also reads `~/.hermes/.env`). AI clips now require the [kie.ai MCP server](https://github.com/oliverhees/kie-ai-mcp-server); `KIE_API_KEY` and the REST fallback are removed from `mp-genclip`. New README section "Level up with ElevenLabs and kie.ai".
 - Fix: `mp-footage/scripts/inventory.sh` no longer pipes `echo` into `python3` and no longer uses `eval` for the frame rate (parsed with `fractions.Fraction`). The Hermes skill security scan flagged the old form (`echo_pipe_exec`) and blocked `hermes skills install` for mp-footage.
 - New cinematic release posters (EN/DE) in the style of the AIIANER repo posters, shown in both READMEs.
+- Fix: mp-audio no longer names the Hermes env-file path in its text/error message (security scan `hermes_env_access` flagged both lines as CRITICAL and blocked the install).
+- Docs: install prompt and START-HERE now cover scan-blocked skills (manual copy fallback), `hyperframes` "already installed" false positive, small install batches and `/reload-skills` being a chat command.

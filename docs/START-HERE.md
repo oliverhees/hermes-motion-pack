@@ -51,7 +51,11 @@ Hermes makes proxies, scans the clips, shows you strips of the best moments, you
 |---|---|
 | render stutters / crashes | Hermes runs `npx hyperframes render --workers 1`, then `npx hyperframes doctor` |
 | "lint error" | the agent must fix it before rendering — ask it to show the lint output |
-| no voice | key missing → `~/.hermes/.env`, then new session |
+| no voice | key missing → `hermes setup`, then new session |
+| `hermes skills install` is blocked by the security scan | read the flagged lines, check them in the repo; if harmless: `cp -r skills/<skill> ~/.hermes/skills/<skill>` (`--force` does not override a "dangerous" verdict) |
+| `hyperframes` "already installed" but not listed | `cp -r ~/.hermes/hermes-agent/optional-skills/creative/hyperframes ~/.hermes/skills/creative/hyperframes` |
+| install aborts or times out | install 2–3 skills per command instead of all at once |
+| new skills not visible | type `/reload-skills` in the Hermes chat (it is not a CLI command) |
 | beats look wrong | tell Hermes the bpm (`"die Musik hat 128 bpm"`) — it passes `--bpm` |
 | the agent says it cannot see images | your model has no vision; open `critique/contact.png` yourself and describe what's off |
 | "Wo waren wir?" | Hermes reads `STATE.json` and continues |

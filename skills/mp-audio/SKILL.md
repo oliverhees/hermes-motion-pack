@@ -18,7 +18,7 @@ required_environment_variables:
 # mp-audio — voice, music, SFX, loudness
 
 ## Keys
-- `ELEVENLABS_API_KEY` is the key Hermes already manages for its ElevenLabs support: enter it in Hermes (`hermes setup`). The script also reads `~/.hermes/.env` and a `.env` in the studio root. Never write a key into a file, log, prompt or answer. Missing key → say so, offer "silent + music only".
+- `ELEVENLABS_API_KEY` is the ElevenLabs key you enter in Hermes (`hermes setup`). The script finds it in the environment, in Hermes' own env file, or in a `.env` in the studio root. Never write a key into a file, log, prompt or answer. Missing key → say so, offer "silent + music only".
 - Voice ID and model come from the user (BRIEF.md). No default voice ID is shipped; ask or let the user pick from their ElevenLabs library.
 
 ## Steps
