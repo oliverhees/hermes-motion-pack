@@ -23,3 +23,4 @@
 - New cinematic release posters (EN/DE) in the style of the AIIANER repo posters, shown in both READMEs.
 - Fix: mp-audio no longer names the Hermes env-file path in its text/error message (security scan `hermes_env_access` flagged both lines as CRITICAL and blocked the install).
 - Docs: install prompt and START-HERE now cover scan-blocked skills (manual copy fallback), `hyperframes` "already installed" false positive, small install batches and `/reload-skills` being a chat command.
+- `install.sh` copies the official HyperFrames skill from Hermes' optional-skills when `hermes skills install` would wrongly report "already installed".
