@@ -1,0 +1,8 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "groupings": [
+    { "title": "Start here", "skills": ["motion-pack"] },
+    { "title": "Pipeline", "skills": ["mp-brief", "mp-style", "mp-storyboard", "mp-build", "mp-audio", "mp-critique", "mp-ship"] },
+    { "title": "Highlight track", "skills": ["mp-footage", "mp-genclip", "mp-highlight"] }
+  ]
+}

@@ -1,0 +1,21 @@
+hermes-motion-pack
+Copyright (c) 2026 Oliver Hees aka Aiianer — https://aiianer.de
+
+This product is part of the AIIANER ecosystem.
+Dieses Produkt ist Teil des AIIANER-Ökosystems.
+
+Licensing / Lizenzierung: dual license (AGPL-3.0 / commercial) — see LICENSE and LICENSING.md.
+
+Trademarks / Marken: "AIIANER" is a trademark of Oliver Hees. The code license
+grants no rights to this name or logo.
+
+"Hermes" is an open-source project by Nous Research
+(github.com/NousResearch/hermes-agent). "HyperFrames" is an open-source project
+by HeyGen. "GSAP" is a trademark of Webflow, Inc. "ElevenLabs" and "kie.ai" are
+trademarks of their respective owners. This project is an independent community
+project and has no official affiliation with any of them.
+
+Third-party software (not bundled, used at runtime): hyperframes (open source,
+HeyGen), gsap (loaded by the HyperFrames scaffold), ffmpeg (LGPL/GPL), numpy (BSD-3-Clause).
+Method inspired by the public "motion design studio with Opus" harness write-up
+(reference → state list → own render → critique your own frames).

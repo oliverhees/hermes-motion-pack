@@ -1,0 +1,18 @@
+# Hermes skill bundle — copy to ~/.hermes/skill-bundles/motion.yaml, then type /motion <request>
+name: motion
+description: hermes-motion-pack — motion graphics & cinematic highlight videos, interview-first, with critique loop.
+skills:
+  - motion-pack
+  - mp-brief
+  - mp-style
+  - mp-storyboard
+  - mp-build
+  - mp-audio
+  - mp-critique
+  - mp-ship
+  - mp-footage
+  - mp-genclip
+  - mp-highlight
+instruction: |
+  Start with motion-pack: interview first (max 2 rounds × 3 questions), then run the chain with approval gates.
+  Speak the user's language; write files in English. Never ship before every critique score is ≥ 8.
