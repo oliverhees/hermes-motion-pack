@@ -102,7 +102,9 @@ you: /motion-pack Mach mir einen 15-Sekunden-Reel für mein Tool
 **Requirements:** Hermes Agent · Node ≥ 22 · ffmpeg · Python 3 (+ `numpy` for beat detection).
 Optional: `ELEVENLABS_API_KEY` for voice-over, `KIE_API_KEY` or the kie.ai MCP for AI clips.
 
-**One line in Hermes (recommended):**
+**Lazy mode — let Hermes install it:** paste the prompt from [docs/HERMES-INSTALL-PROMPT.md](docs/HERMES-INSTALL-PROMPT.md) into any Hermes chat. It checks dependencies, installs the skills and keys, and ends with a test render.
+
+**One line in Hermes:**
 
 ```bash
 hermes skills tap add oliverhees/hermes-motion-pack && for s in motion-pack mp-brief mp-style mp-storyboard mp-build mp-audio mp-critique mp-ship mp-footage mp-genclip mp-highlight; do hermes skills install oliverhees/hermes-motion-pack/$s; done && hermes skills install official/creative/hyperframes
